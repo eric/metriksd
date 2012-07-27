@@ -28,7 +28,8 @@ class MetriksServerReporterTest < Test::Unit::TestCase
     @server_persister = @server_reporter.queue.persister
 
     @client_registry = Metriks::Registry.new
-    @client_reporter = MetriksServerReporter.new(:host => '127.0.0.1', :port => @port, :registry => @client_registry)
+    @client_reporter = MetriksServerReporter.new(:host => '127.0.0.1', :port => @port,
+      :registry => @client_registry, :extras => { :source => Socket.gethostname })
 
     @client_reporter.start
     @client_registry.timer('client.test.metric').update(5.3)
@@ -38,6 +39,8 @@ class MetriksServerReporterTest < Test::Unit::TestCase
 
     @server_config.stop
     @server_config.join
+
+    puts @server_persister.persisted.inspect
 
     assert_not_nil @server_persister.persisted, @server_persister.inspect
     assert @server_persister.persisted.length == 1, @server_persister.persisted.inspect
