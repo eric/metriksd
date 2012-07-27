@@ -1,0 +1,12 @@
+registry:
+  interval: 60
+
+  reporter:
+    type: librato_metrics
+    interval: 60
+    email: a@b.com
+    api_key: aaaabff
+
+  server:
+    type: udp
+    port: 2006
