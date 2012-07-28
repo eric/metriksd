@@ -25,6 +25,9 @@ module MetriksServer
     end
     
     def start
+      # Don't resolve when we receive a packet
+      BasicSocket.do_not_reverse_lookup = true
+
       @socket ||= UDPSocket.new.tap do |s|
         s.setsockopt(Socket::SOL_SOCKET, Socket::SO_RCVBUF, @recvbuf)
         s.bind(@host, @port)
