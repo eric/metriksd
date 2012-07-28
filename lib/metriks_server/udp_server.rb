@@ -19,12 +19,14 @@ module MetriksServer
       @port     = options[:port]
       @host     = options[:host]   || '0.0.0.0'
       @logger   = options[:logger] || Logger.new(STDERR)
+      @recvbuf  = options[:recvbuf] || 1024 * 1024
 
       @unpacker = MessagePack::Unpacker.new
     end
     
     def start
       @socket ||= UDPSocket.new.tap do |s|
+        s.setsockopt(Socket::SOL_SOCKET, Socket::SO_RCVBUF, @recvbuf)
         s.bind(@host, @port)
       end
       
