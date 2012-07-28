@@ -16,6 +16,7 @@ module MetriksServer
       @queue = @client.new_queue
 
       @interval = options[:interval] || @registry.interval
+      @intervel_offset = options[:interval_offset] || 2
     end
 
     def start
@@ -57,7 +58,7 @@ module MetriksServer
     def sleep_until_deadline
       now          = Time.now.to_f
       rounded      = now - (now % @interval)
-      next_rounded = rounded + @interval
+      next_rounded = rounded + @interval + @intervel_offset
       sleep_time   = next_rounded - Time.now.to_f
 
       # Allow this to be interrupted

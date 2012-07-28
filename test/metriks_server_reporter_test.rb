@@ -40,8 +40,6 @@ class MetriksServerReporterTest < Test::Unit::TestCase
     @server_config.stop
     @server_config.join
 
-    puts @server_persister.persisted.inspect
-
     assert_not_nil @server_persister.persisted, @server_persister.inspect
     assert @server_persister.persisted.length == 1, @server_persister.persisted.inspect
   end
