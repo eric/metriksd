@@ -10,6 +10,7 @@ class MetriksServerReporterTest < Test::Unit::TestCase
     @server_config = MetriksServer::Config.new
 
     @server_config.load :registry => {
+      :ignore_current_timeslice => false,
       :reporter => {
         :type => 'librato_metrics',
         :email => 'a@b.com',

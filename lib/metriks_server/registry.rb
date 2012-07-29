@@ -9,6 +9,8 @@ module MetriksServer
       @interval = options[:interval] || 60
       @window   = options[:window]   || 10 * @interval
 
+      @ignore_current_timeslice = options.fetch(:ignore_current_timeslice, true)
+
       @mutex = Mutex.new
 
       @timeslices = Hash.new do |h,k|
@@ -34,7 +36,13 @@ module MetriksServer
       trim
 
       @mutex.synchronize do
-        @timeslices.values.select { |t| t.dirty? }
+        if @ignore_current_timeslice
+          current_time = rounded_time(Time.now)
+        end
+
+        @timeslices.values.select do |t|
+          t.dirty? && (!current_time || current_time != t.time)
+        end
       end
     end
     

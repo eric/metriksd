@@ -3,7 +3,7 @@ require 'metriks_server/librato_metrics_reporter'
 
 class LibratoMetricsReporterTest < Test::Unit::TestCase
   def setup
-    @registry = MetriksServer::Registry.new
+    @registry = MetriksServer::Registry.new(:ignore_current_timeslice => false)
     @reporter = MetriksServer::LibratoMetricsReporter.new(@registry, :email => 'x', :api_key => 'y')
     @reporter.client.persistence = :test
   end
