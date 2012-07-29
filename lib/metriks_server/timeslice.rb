@@ -3,9 +3,9 @@ module MetriksServer
     attr_reader :time
 
     def initialize(time)
-      @time = time
-      @mutex = Mutex.new
-      @dirty = false
+      @time    = time
+      @mutex   = Mutex.new
+      @dirty   = false
       @records = {}
     end
     
@@ -18,13 +18,13 @@ module MetriksServer
     def flush
       @mutex.synchronize do
         @dirty = false
-        @records.dup
+        @records.values
       end
     end
     
     def push(data)
       @mutex.synchronize do
-        @records[data.client_id] = data
+        @records["#{data.client_id}/#{data.name}"] = data
         @dirty = true
       end
     end

@@ -7,7 +7,7 @@ module MetriksServer
     attr_reader :servers, :reporters
 
     def initialize
-      @servers = []
+      @servers   = []
       @reporters = []
     end
 

@@ -1,4 +1,5 @@
 require 'socket'
+require 'eventmachine'
 require 'logger'
 require 'snappy'
 require 'msgpack'
@@ -7,6 +8,17 @@ require 'metriks_server/registry'
 
 module MetriksServer
   class UdpServer
+    class Handler < EventMachine::Connection
+      def initialize(proc)
+        @proc = proc
+        super
+      end
+
+      def receive_data(data)
+        @proc.call(data)
+      end
+    end
+
     attr_reader :logger, :port, :host, :registry
 
     def initialize(registry, options = {})
@@ -17,51 +29,42 @@ module MetriksServer
 
       @registry = registry
       @port     = options[:port]
-      @host     = options[:host]   || '0.0.0.0'
-      @logger   = options[:logger] || Logger.new(STDERR)
+      @host     = options[:host]    || '0.0.0.0'
+      @logger   = options[:logger]  || Logger.new(STDERR)
       @recvbuf  = options[:recvbuf] || 1024 * 1024
 
       @unpacker = MessagePack::Unpacker.new
     end
     
     def start
-      # Don't resolve when we receive a packet
-      BasicSocket.do_not_reverse_lookup = true
-
-      @socket ||= UDPSocket.new.tap do |s|
-        s.setsockopt(Socket::SOL_SOCKET, Socket::SO_RCVBUF, @recvbuf)
-        s.bind(@host, @port)
+      unless EventMachine.reactor_running?
+        Thread.new do
+          EventMachine.epoll  = true if EventMachine.epoll?
+          EventMachine.kqueue = true if EventMachine.kqueue?
+          EventMachine.run
+        end
       end
-      
-      @thread ||= Thread.new do
-        while @socket
+
+      EventMachine.next_tick do
+        handler = proc do |data|
           begin
-            data, sender = @socket.recvfrom(10000)
             unmarshal(data)
-          rescue IOError
-            # It's likely our socket was closed on us
           rescue => e
             logger.error "Error in metriks server: #{e.class}: #{e.message}\n\t#{e.backtrace.join("\n\t")}"
           end
         end
+
+        EventMachine.open_datagram_socket(@host, @port, Handler, handler)
       end
     end
     
     def stop
-      if @socket
-        @socket.close
-        @socket = nil
-      end
-      
-      if @thread
-        @thread.join
-        @thread = nil
-      end
+      EventMachine.stop
     end
 
     def join
-      if @thread
-        @thread.join
+      if EventMachine.reactor_thread?
+        EventMachine.reactor_thread.join
       end
     end
     

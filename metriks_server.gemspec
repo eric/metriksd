@@ -46,6 +46,7 @@ Gem::Specification.new do |s|
   s.add_dependency('msgpack', '~> 0.4')
   s.add_dependency('snappy')
   s.add_dependency('activesupport')
+  s.add_dependency('eventmachine', '~> 1.0.0.rc.4')
 
   ## List your development dependencies here. Development dependencies are
   ## those that are only needed during development

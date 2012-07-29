@@ -23,6 +23,9 @@ class MetriksServerReporterTest < Test::Unit::TestCase
 
     @server_config.start
 
+    # Wait for eventmachine
+    thr = Thread.current; EventMachine.next_tick { thr.wakeup }; Thread.stop
+
     @server_reporter = @server_config.reporters.first
     @server_reporter.client.persistence = :test
     @server_persister = @server_reporter.queue.persister

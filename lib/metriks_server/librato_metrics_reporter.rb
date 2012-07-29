@@ -15,7 +15,7 @@ module MetriksServer
       @client.authenticate options[:email], options[:api_key]
       @queue = @client.new_queue
 
-      @interval = options[:interval] || @registry.interval
+      @interval        = options[:interval] || @registry.interval
       @intervel_offset = options[:interval_offset] || 2
     end
 
