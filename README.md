@@ -15,7 +15,7 @@ An experimental server for ruby metrics library called [metriks][].
 
 Run the server:
 
-    $ metriks_server -c config.yml
+    $ metriksd -c config.yml
 
 
 
