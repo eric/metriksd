@@ -61,21 +61,21 @@ Gem::Specification.new do |s|
     LICENSE
     README.md
     Rakefile
-    bin/metriks_server
+    bin/metriksd
     examples/config.yml
-    lib/metriks_server.rb
-    lib/metriks_server/cli.rb
-    lib/metriks_server/config.rb
-    lib/metriks_server/data.rb
-    lib/metriks_server/librato_metrics_reporter.rb
-    lib/metriks_server/librato_metrics_reporter/timeslice_rollup.rb
-    lib/metriks_server/registry.rb
-    lib/metriks_server/timeslice.rb
-    lib/metriks_server/udp_server.rb
-    metriks_server.gemspec
+    lib/metriksd.rb
+    lib/metriksd/cli.rb
+    lib/metriksd/config.rb
+    lib/metriksd/data.rb
+    lib/metriksd/librato_metrics_reporter.rb
+    lib/metriksd/librato_metrics_reporter/timeslice_rollup.rb
+    lib/metriksd/registry.rb
+    lib/metriksd/timeslice.rb
+    lib/metriksd/udp_server.rb
+    metriksd.gemspec
     test/config_test.rb
     test/librato_metrics_reporter_test.rb
-    test/metriks_server_reporter_test.rb
+    test/metriksd_reporter_test.rb
     test/test_helper.rb
     test/udp_server_test.rb
   ]
