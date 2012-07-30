@@ -1,6 +1,6 @@
 require 'librato/metrics'
 
-module MetriksServer
+module Metriksd
   class LibratoMetricsReporter
     attr_reader :client, :queue
 
@@ -46,7 +46,7 @@ module MetriksServer
       timeslices = @registry.dirty_timeslices
 
       timeslices.each do |timeslice|
-        rollup = MetriksServer::LibratoMetricsReporter::TimesliceRollup.new(timeslice)
+        rollup = Metriksd::LibratoMetricsReporter::TimesliceRollup.new(timeslice)
         @queue.add rollup.to_hash
       end
 
@@ -73,4 +73,4 @@ module MetriksServer
   end
 end
 
-require 'metriks_server/librato_metrics_reporter/timeslice_rollup'
+require 'metriksd/librato_metrics_reporter/timeslice_rollup'

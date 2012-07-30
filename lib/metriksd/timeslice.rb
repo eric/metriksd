@@ -1,4 +1,4 @@
-module MetriksServer
+module Metriksd
   class Timeslice
     attr_reader :time
 

@@ -4,9 +4,9 @@ require 'logger'
 require 'snappy'
 require 'msgpack'
 
-require 'metriks_server/registry'
+require 'metriksd/registry'
 
-module MetriksServer
+module Metriksd
   class UdpServer
     class Handler < EventMachine::Connection
       def initialize(proc)

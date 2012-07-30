@@ -1,9 +1,9 @@
 require 'test_helper'
-require 'metriks_server/config'
+require 'metriksd/config'
 
 class ConfigTest < Test::Unit::TestCase
   def setup
-    @config = MetriksServer::Config.new
+    @config = Metriksd::Config.new
   end
   
   def test_broken_config

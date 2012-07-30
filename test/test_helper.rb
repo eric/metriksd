@@ -3,6 +3,6 @@ require 'pp'
 
 # require 'mocha'
 
-require 'metriks_server'
+require 'metriksd'
 
 Thread.abort_on_exception = true

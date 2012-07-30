@@ -1,13 +1,13 @@
 require 'test_helper'
-require 'metriks_server/config'
-require 'metriks_server_reporter'
+require 'metriksd/config'
+require 'metriksd_reporter'
 require 'metriks'
 
-class MetriksServerReporterTest < Test::Unit::TestCase
+class MetriksdReporterTest < Test::Unit::TestCase
   def test_working_config
     @port = 39283
 
-    @server_config = MetriksServer::Config.new
+    @server_config = Metriksd::Config.new
 
     @server_config.load :registry => {
       :ignore_current_timeslice => false,
@@ -32,7 +32,7 @@ class MetriksServerReporterTest < Test::Unit::TestCase
     @server_persister = @server_reporter.queue.persister
 
     @client_registry = Metriks::Registry.new
-    @client_reporter = MetriksServerReporter.new(:host => '127.0.0.1', :port => @port,
+    @client_reporter = MetriksdReporter.new(:host => '127.0.0.1', :port => @port,
       :registry => @client_registry, :extras => { :source => Socket.gethostname })
 
     @client_reporter.start

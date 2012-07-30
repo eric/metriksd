@@ -12,9 +12,9 @@ Gem::Specification.new do |s|
   ## Leave these as is they will be modified for you by the rake gemspec task.
   ## If your rubyforge_project name is different, then edit it and comment out
   ## the sub! line in the Rakefile
-  s.name              = 'metriks_server'
+  s.name              = 'metriksd'
   s.version           = '0.5.0'
-  s.date              = '2012-07-27'
+  s.date              = '2012-07-29'
 
   ## Make sure your summary is short. The description may be as long
   ## as you like.
@@ -33,7 +33,7 @@ Gem::Specification.new do |s|
   s.require_paths = %w[lib]
 
   ## If your gem includes any executables, list them here.
-  s.executables = ["metriks_server"]
+  s.executables = ["metriksd"]
 
   ## Specify any RDoc options here. You'll want to add your README and
   ## LICENSE files to the extra_rdoc_files list.
@@ -50,7 +50,7 @@ Gem::Specification.new do |s|
 
   ## List your development dependencies here. Development dependencies are
   ## those that are only needed during development
-  s.add_development_dependency('metriks_server_reporter')
+  s.add_development_dependency('metriksd_reporter')
 
   ## Leave this section as-is. It will be automatically generated from the
   ## contents of your Git repository via the gemspec task. DO NOT REMOVE

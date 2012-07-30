@@ -1,6 +1,6 @@
 require 'active_support/core_ext/hash'
 
-module MetriksServer
+module Metriksd
   class Data
     attr_reader :time, :client_id, :name, :payload
 

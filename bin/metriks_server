@@ -1,5 +1,0 @@
-#!/usr/bin/env ruby
-
-require 'metriks_server'
-
-MetriksServer::Cli.new(ARGV).parse

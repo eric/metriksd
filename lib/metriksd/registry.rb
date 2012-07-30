@@ -1,7 +1,7 @@
-require 'metriks_server/data'
-require 'metriks_server/timeslice'
+require 'metriksd/data'
+require 'metriksd/timeslice'
 
-module MetriksServer
+module Metriksd
   class Registry
     attr_reader :interval, :window
 

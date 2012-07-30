@@ -1,8 +1,8 @@
-require 'metriks_server/registry'
-require 'metriks_server/udp_server'
-require 'metriks_server/librato_metrics_reporter'
+require 'metriksd/registry'
+require 'metriksd/udp_server'
+require 'metriksd/librato_metrics_reporter'
 
-module MetriksServer
+module Metriksd
   class Config
     attr_reader :servers, :reporters
 
@@ -38,7 +38,7 @@ module MetriksServer
         end
         server_config = server_config.with_indifferent_access
 
-        registry = MetriksServer::Registry.new(registry_config)
+        registry = Metriksd::Registry.new(registry_config)
 
         @reporters << reporter_class(reporter_config.delete(:type)).new(registry, reporter_config)
         @servers   << server_class(server_config.delete(:type)).new(registry, server_config)
@@ -66,7 +66,7 @@ module MetriksServer
     def reporter_class(type)
       case type.to_s
       when 'librato_metrics'
-        MetriksServer::LibratoMetricsReporter
+        Metriksd::LibratoMetricsReporter
       when '', nil
         raise "No reporter 'type' was specified"
       else
@@ -77,7 +77,7 @@ module MetriksServer
     def server_class(type)
       case type.to_s
       when 'udp'
-        MetriksServer::UdpServer
+        Metriksd::UdpServer
       when '', nil
         raise "No server 'type' was specified"
       else

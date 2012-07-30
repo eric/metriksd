@@ -4,4 +4,4 @@ gemspec
 
 gem 'rake', '0.8.7'
 
-# gem 'metriks_server_reporter', :path => '../metriks_server_reporter'
+gem 'metriksd_reporter', :path => '../metriksd_reporter'

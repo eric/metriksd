@@ -1,4 +1,4 @@
-module MetriksServer
+module Metriksd
   class LibratoMetricsReporter::TimesliceRollup
     class AverageGauge
       attr_accessor :name, :source, :count, :sum, :sum_of_squares, :min, :max

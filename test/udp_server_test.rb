@@ -2,8 +2,8 @@ require 'test_helper'
 
 class UdpServerTest < Test::Unit::TestCase
   def setup
-    @registry = MetriksServer::Registry.new
-    @server = MetriksServer::UdpServer.new(@registry, :port => 30000 + rand(1000))
+    @registry = Metriksd::Registry.new
+    @server = Metriksd::UdpServer.new(@registry, :port => 30000 + rand(1000))
     @server.start
   end
   

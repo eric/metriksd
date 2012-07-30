@@ -1,7 +1,7 @@
-require 'metriks_server/config'
+require 'metriksd/config'
 require 'optparse'
 
-module MetriksServer
+module Metriksd
   class Cli
     def initialize(argv)
       @argv = argv.dup
@@ -26,7 +26,7 @@ module MetriksServer
         end
 
         opts.on_tail("--version", "Show version") do
-          puts MetriksServer::VERSION
+          puts Metriksd::VERSION
           exit(0)
         end
       end
@@ -39,7 +39,7 @@ module MetriksServer
         exit(1)
       end
 
-      config = MetriksServer::Config.new
+      config = Metriksd::Config.new
       config.load_file(config_file)
       config.start
       config.join
