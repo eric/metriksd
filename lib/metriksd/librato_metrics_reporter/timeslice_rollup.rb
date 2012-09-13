@@ -1,5 +1,29 @@
 module Metriksd
   class LibratoMetricsReporter::TimesliceRollup
+
+    class Counter
+      attr_accessor :name, :source, :value
+      def initialize(name, source)
+        @name = name
+        @source = source
+        @value = 0.0
+      end
+
+      def increment(val)
+        @value += val
+      end
+
+      def to_hash
+        {
+           :name => name,
+           :source => source,
+           :value => value,
+           :type => 'counter'
+        }
+      end
+    end
+
+
     class AverageGauge
       attr_accessor :name, :source, :count, :sum, :sum_of_squares, :min, :max
 
@@ -69,6 +93,7 @@ module Metriksd
     def process
       return if @gauges
       @gauges = {}
+      @counters = {}
 
       @timeslice.flush.each do |data|
         case data[:type]
@@ -89,7 +114,7 @@ module Metriksd
     def to_hash
       process
 
-      @gauges.map do |name, gauge|
+      @gauges.merge(@counters).map do |name, gauge|
         [ gauge.name, gauge.to_hash.merge(:measure_time => @timeslice.time) ]
       end
     end
@@ -133,6 +158,12 @@ module Metriksd
       key = [ name, source ].join('/')
       @gauges[key] ||= AverageGauge.new(name, source)
       @gauges[key].mark(value)
+    end
+
+    def counter(name, source, increment)
+      key = [ name, source ].join('/')
+      @counters[key] ||= Counter.new(name, source)
+      @counters[key].increment(increment)
     end
 
     def sum_gauge(name, source, value)
