@@ -36,7 +36,8 @@ class MetriksdReporterTest < Test::Unit::TestCase
       :registry => @client_registry, :extras => { :source => Socket.gethostname })
 
     @client_reporter.start
-    @client_registry.timer('client.test.metric').update(5.3)
+    @client_registry.timer('test.timer').update(5.3)
+    @client_registry.histogram('test.histogram').update(5.3)
 
     @client_reporter.flush
     @client_reporter.stop
