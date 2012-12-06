@@ -42,11 +42,11 @@ Gem::Specification.new do |s|
 
   ## List your runtime dependencies here. Runtime dependencies are those
   ## that are needed for an end user to actually USE your code.
-  s.add_dependency('librato-metrics', '~> 0.7')
+  s.add_dependency('librato-metrics', [ '>= 0.7', '< 2.0' ])
   s.add_dependency('msgpack', '~> 0.4')
   s.add_dependency('snappy')
   s.add_dependency('activesupport')
-  s.add_dependency('eventmachine', '~> 1.0.0.rc.4')
+  s.add_dependency('eventmachine', '~> 1.0')
 
   ## List your development dependencies here. Development dependencies are
   ## those that are only needed during development
