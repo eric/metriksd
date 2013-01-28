@@ -13,8 +13,8 @@ Gem::Specification.new do |s|
   ## If your rubyforge_project name is different, then edit it and comment out
   ## the sub! line in the Rakefile
   s.name              = 'metriksd'
-  s.version           = '0.5.2'
-  s.date              = '2012-12-05'
+  s.version           = '0.5.3'
+  s.date              = '2013-01-27'
 
   ## Make sure your summary is short. The description may be as long
   ## as you like.
