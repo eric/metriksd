@@ -82,8 +82,10 @@ module Metriksd
           add_meter(data)
         when 'histogram'
           add_histogram(data)
+        when 'gauge'
+          add_gauge(data)
         else
-          raise "Unknown data type: #{data[:type].inspect}"
+          puts "Unknown data type: #{data[:type].inspect}"
         end
       end
     end
@@ -97,7 +99,11 @@ module Metriksd
     end
 
     def add_counter(data)
-      counter(data.name, data[:source], data[:count])
+      average_gauge(data.name, data[:source], data[:count])
+    end
+
+    def add_gauge(data)
+      average_gauge(data.name, data[:source], data[:value])
     end
 
     def add_timer(data)
