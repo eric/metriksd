@@ -57,12 +57,12 @@ module Metriksd
           @queue.submit
         rescue => e
           if attempts > 0
-            puts "Exception from librato metrics. retrying: #{e.class}: #{e.backtrace.join("\n\t")}"
+            puts "Exception from librato metrics. retrying: #{e.class}: #{e.message.to_s[0..500]}\n#{e.backtrace.join("\n\t")}"
             sleep attempts + 1
             attempts -= 1
             retry
           else
-            puts "Exception from librato metrics. dropping: #{e.class}: #{e.backtrace.join("\n\t")}"
+            puts "Exception from librato metrics. dropping: #{e.class}: #{e.message.to_s[0..500]}\n#{e.backtrace.join("\n\t")}"
           end
         end
       end
