@@ -152,12 +152,18 @@ module Metriksd
     end
 
     def average_gauge(name, source, value)
+      # Deal with cases where we get things that aren't numbers
+      return unless value.is_a?(Numeric)
+
       key = [ name, source ].join('/')
       @gauges[key] ||= AverageGauge.new(name, source)
       @gauges[key].mark(value)
     end
 
     def sum_gauge(name, source, value)
+      # Deal with cases where we get things that aren't numbers
+      return unless value.is_a?(Numeric)
+
       key = [ name, source ].join('/')
       @gauges[key] ||= SumGauge.new(name, source)
       @gauges[key].mark(value)
