@@ -1,3 +1,4 @@
+require 'yaml'
 require 'metriksd/registry'
 require 'metriksd/udp_server'
 require 'metriksd/librato_metrics_reporter'
