@@ -1,14 +1,14 @@
 module Metriksd
   class LibratoMetricsReporter::TimesliceRollup
     class AverageGauge
-      attr_accessor :name, :source, :count, :sum, :sum_of_squares, :min, :max
+      attr_accessor :name, :source, :count, :sum, :sum_squares, :min, :max
 
       def initialize(name, source)
         @name           = name
         @source         = source
         @count          = 0
         @sum            = 0
-        @sum_of_squares = 0
+        @sum_squares = 0
         @min            = nil
         @max            = nil
       end
@@ -16,7 +16,7 @@ module Metriksd
       def mark(value)
         @count += 1
         @sum += value
-        @sum_of_squares += value ** 2
+        @sum_squares += value ** 2
 
         if !@min || value < @min
           @min = value
@@ -33,7 +33,7 @@ module Metriksd
           :source => source,
           :count => count,
           :sum => sum,
-          :sum_of_squares => sum_of_squares,
+          :sum_squares => sum_squares,
           :min => min,
           :max => max
         }
